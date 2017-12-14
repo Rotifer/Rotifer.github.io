@@ -335,6 +335,7 @@ I now use this approach to document my UDFs and have migrated all my old comment
 * The System Catalog Information Functions given in the [documentation](https://www.postgresql.org/docs/9.6/static/functions-info.html) are well worth perusing; There are some very useful ones for extracting information about functions generally, for example, the return type, the definitions, the paramaters and so forth.
 * Some good general advice in [Make Your Relational Database Self-Documenting](https://glennstreet.net/2013/08/24/make-your-relational-database-self-documenting-2/).
 * Description of SQL Server extended properties (comments) [Towards the Self-Documenting SQL Server Database](https://www.red-gate.com/simple-talk/sql/sql-tools/towards-the-self-documenting-sql-server-database/)
+* A relevant example from the MySQL world: [Best Practices Guide for Documenting MySQL Databases](https://techwriter.me/best-practices-guide/documenting-mysql-databases.aspx).
 
 
 ## Contact nformation
