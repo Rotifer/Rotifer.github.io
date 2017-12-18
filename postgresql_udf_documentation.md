@@ -313,9 +313,12 @@ SELECT
   function_comment->>'Example' example_call,
   function_comment->>'Notes' notes,
   function_comment->>'Commenter_Username' comment_added_by,
-  function_comment->>'Comment_Date' comment_date
+  function_comment->>'Comment_Date' comment_date,
+  pg_get_functiondef(function_oid) function_def,
+  pg_get_function_arguments(function_oid) function_args,
+  pg_get_function_result(function_oid) function_returns
 FROM 
-  get_function_details_for_schema('public', 'NON_STANDARD_COMMENT');                                        
+  get_function_details_for_schema('public', 'NON_STANDARD_COMMENT');                                          
 COMMENT ON VIEW public.vw_udf_documentation IS 'Uses the UDF get_function_details_for_schema to extract documentation from UDF comments in the schema public.';                                       
 ```
 
