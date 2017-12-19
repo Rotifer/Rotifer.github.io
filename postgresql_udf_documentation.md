@@ -328,6 +328,65 @@ Having this view in each schema:
 * Highlights functions that have non-standard or NULL comments - it does handle NULL comments
 * Helps other users quickly navigate the database
 
+## Executing the function call examples embedded in the JSON comments
+I have embedded examples of function calls in all the comments that were added using the documentation function *create__function__comment_statement*. As part of checking and quality control, I want to automate calling them by extracting and executing the SQL snippets. To do this, I have wrtten the following function in the *public* shema:
+
+```plpgsql
+CREATE OR REPLACE FUNCTION test_execute_udfs_for_schema(p_schema_name TEXT)
+RETURNS TABLE(function_oid OID, function_name TEXT, example_sql TEXT, is_valid BOOLEAN, error_message TEXT)
+AS
+$$
+DECLARE
+  r_row RECORD;
+  l_sql_to_execute TEXT;
+  BEGIN
+  FOR r_row IN (SELECT
+                  func_detail.function_oid,
+                  func_detail.function_name,
+                  func_detail.function_comment->>'Example' example_call
+                FROM
+                  get_function_details_for_schema(p_schema_name, 'NON_STANDARD_COMMENT') func_detail)
+  LOOP
+    BEGIN
+      l_sql_to_execute := r_row.example_call;
+      PERFORM pg_sleep(1);
+      EXECUTE l_sql_to_execute;
+      function_oid := r_row.function_oid;
+      function_name := r_row.function_name;
+      example_sql := l_sql_to_execute;
+      is_valid := TRUE;
+      error_message := NULL;
+      RETURN NEXT;
+    EXCEPTION WHEN OTHERS THEN
+      function_oid := r_row.function_oid;
+      function_name := r_row.function_name;
+      example_sql := l_sql_to_execute;
+      is_valid := FALSE;
+      error_message := SQLERRM;
+      RETURN NEXT; 
+    END;       
+  END LOOP;
+END;
+$$
+LANGUAGE plpgsql
+STABLE
+SECURITY DEFINER;
+```
+
+As before, I add standard format documentation:
+```sql
+SELECT create_function_comment_statement('test_execute_udfs_for_schema', 
+                                         ARRAY['TEXT'], 
+                                         'Execute the embedded SQL commands in all functions in the given schema.', 
+                                         $$SELECT 1;$$, 
+                                         'Will only execute SQL extrracted from function comments that were added using *create_function_comment_statement*' ||
+                                         'Expects the SQL to be returned by the JSON key *Example*.' ||
+                                         'The nested block is used to allow the function to continue even when it cannot execute the extracted SQL.' ||
+                                        'This function is dangerous because it will attempt to execute any SQL that it extracts!' ||
+                                        'Therefore its security is *DEFINER* and it should only be run on a test or integration database and NOT in production!');; 
+  
+```
+
 ## Conclusions
 I now use this approach to document my UDFs and have migrated all my old comments into this format. Readers may have their own requirements and conventions but I think the code examples I have given here could help. Documenting code may not be the most exciting task in the world but trying to debug and understand undocumented or poorly documented code is even less fun so it is definitely worth the effort to do it properly. I hope that the and tools and approach that I have described here help at least some readers in their efforts.
 
