@@ -361,7 +361,11 @@ DECLARE
       function_oid := r_row.function_oid;
       function_name := r_row.function_name;
       example_sql := l_sql_to_execute;
-      is_valid := FALSE;
+      IF l_sql_to_execute IS NULL THEN
+        is_valid := NULL;
+      ELSE
+        is_valid := FALSE;
+      END IF;
       error_message := SQLERRM;
       RETURN NEXT; 
     END;       
@@ -370,22 +374,82 @@ END;
 $$
 LANGUAGE plpgsql
 STABLE
-SECURITY DEFINER;
-```
+SECURITY DEFINER;```
 
 As before, I add standard format documentation:
 ```sql
 SELECT create_function_comment_statement('test_execute_udfs_for_schema', 
                                          ARRAY['TEXT'], 
                                          'Execute the embedded SQL commands in all functions in the given schema.', 
-                                         $$SELECT 1;$$, 
+                                         $$SELECT * FROM test_execute_udfs_for_schema('test_schema');$$, 
                                          'Will only execute SQL extrracted from function comments that were added using *create_function_comment_statement*' ||
                                          'Expects the SQL to be returned by the JSON key *Example*.' ||
                                          'The nested block is used to allow the function to continue even when it cannot execute the extracted SQL.' ||
-                                        'This function is dangerous because it will attempt to execute any SQL that it extracts!' ||
-                                        'Therefore its security is *DEFINER* and it should only be run on a test or integration database and NOT in production!');; 
+                                         'The example SQL call for this function will return no rows if the schema name *test_schema* does not exist in the current database. ' ||
+                                         'This function is dangerous because it will attempt to execute any SQL that it extracts!' ||
+                                         'Therefore its security is *DEFINER* and it should only be run on a test or integration database and NOT in production!');
   
 ```
+
+This function extracts the example code snippet from each function where the comment was added in the JSONB format specified by the function *create_function_comment_statement*. 
+
+* The FOR loop iterates over all the user-defined functions in the given schema to extract and execute the embedded SQL example call.
+* If there is no comment  or it is not in the specified format, the extracted SQL snippet is  *NULL*. 
+* An inner block with an EXCEPTION section is used to dynamically *EXECUTE* the SQL example.
+* If the SQL example generates an error of any kind, the EXCEPTION section of the inner block handles it.
+* If there is no SQL to *EXECUTE*, the *is_valid* returned value is set to NULL. Otherwise, it is set to *FALSE*.
+* This is a good use of NULL because if theere is no SQL example to execute to test the function, then we cannot determine the validity of the function.
+
+When this function is executed, the output table can be expected. For convenience, we could wrap this function call in a view. 
+
+Beware of functions that directly or indirectly call external resources! I sometimes use plpython to call external REST services. If the REST server is unavailable for any reason, the function may be set as invalid. In such instances, carefully examine the error column in the returned table.
+
+
+### Comment text length
+Oracle sets a generous 4000 character limit on object comments compared to the miserly 80 allowed by MySQL. What about PostgreSQL? Let's see! To test this I create a useless function called *hello_user" and write an anonymous PL/pgSQL block to add a dummy comment to it.
+
+**Create the function (default schema = public)**
+```plpgsql
+CREATE OR REPLACE FUNCTION hello_user()
+RETURNS TEXT
+AS
+$$
+BEGIN
+  RETURN 'Hello ' || CURRENT_USER;
+END;
+$$
+LANGUAGE plpgsql
+STABLE
+SECURITY INVOKER;
+```
+
+**Test it**
+```sql
+SELECT * FROM hello_user();
+```
+
+
+**Write an anonymous block to add a large meaningless comment to our useless function.**
+```plpgsql
+DO
+$$
+DECLARE
+  l_comment TEXT := REPEAT('X', 10000);
+BEGIN
+  EXECUTE FORMAT('COMMENT ON FUNCTION hello_user() IS $qq$%s$qq$', l_comment);
+END;
+$$
+```
+Check the function properties to verify that a comment of 10,000 X's was indeed added.
+
+**Clean-up**
+```sql
+DROP FUNCTION hello_user();
+
+```
+
+Wow, we added text of 10,000 characters to the comment string without any error or truncation. Impressive!
+
 
 ## Conclusions
 I now use this approach to document my UDFs and have migrated all my old comments into this format. Readers may have their own requirements and conventions but I think the code examples I have given here could help. Documenting code may not be the most exciting task in the world but trying to debug and understand undocumented or poorly documented code is even less fun so it is definitely worth the effort to do it properly. I hope that the and tools and approach that I have described here help at least some readers in their efforts.
@@ -400,7 +464,7 @@ I now use this approach to document my UDFs and have migrated all my old comment
 * A relevant example from the MySQL world: [Best Practices Guide for Documenting MySQL Databases](https://techwriter.me/best-practices-guide/documenting-mysql-databases.aspx).
 
 
-## Contact nformation
+## Contact information
 Michael Maguire  
 Written: 2017-12-11  
 Email: mick@javascript-spreadsheet-programming.com  
