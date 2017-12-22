@@ -81,7 +81,7 @@ SELECT create_function_comment_statement('create_function_comment_statement',
 * The function is created in the *public* schema
 * The function takes the following arguments:
     1. The name of the function to comment, that is the *target function* given in the format *schema_name.function_name*
-    2. Text array of the parameter types for the target function
+    2. Text array of the parameter types for the target function (**set to NULL for functions with no parameters!**)
     3. Sentence describing the purpose of the function
     4. An example of how the target function is called that is enclosed in double dollar quotes ($$) to enclose the single quotes needed for text value arguments for the target function
     5. An optional descriptive note that if omitted, uses the empty string default.
