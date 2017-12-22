@@ -103,3 +103,8 @@ I will discuss the JSONB processing functions used here in a later post.
 I have shown how the *plpythonu* extension can be installed to perform tasks that are impossible with PL/pgSQL. The example given here uses a Python function to call am external REST API that returns JSON. I called this function in PL/pgSQL where I parsed the returned JSON into a table. I think this demonstrates one of PostgreSQL's greatest features: its extensibility! If a task is not possible in SQL or PL/pgSQL, you can use the extension mechanism to access very powerful languages like Python to do it for you. I have used Python here because I know it and like it. I have also used the JavaScript extension called [plv8](https://pgxn.org/dist/plv8/doc/plv8.html). This one seems to be very popular, especially with people who do a lot of JSON manipulation. It also fits well when PostgreSQL is used as a back-end in JavaScript-based stacks for web applications. There is also an R extension that I have not used but that must surely appeal to those who do a lot of statistical manipulation. Bottom line: you have a great range of options to extend PostgreSQL functionality.
 
 
+## Contact information
+Michael Maguire  
+Written: 2017-12-22  
+Email: mick@javascript-spreadsheet-programming.com  
+Twitter: https://twitter.com/michaelfmaguir1
