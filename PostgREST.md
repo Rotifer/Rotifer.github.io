@@ -1,6 +1,6 @@
 # PostgREST
 
-[PostgREST](https://postgrest.com/en/v4.3/) is a really easy way to get REST API up-and-running for your database. I am going to write some rough notes now on how I set this up for my main PostgreSQL database running on RHEL 7. I will flesh this out later with more example of how to use the REST API.
+[PostgREST](https://postgrest.com/en/v4.3/) is a really easy way to get a REST API up-and-running for your database. I am going to write some rough notes now on how I set this up for my main PostgreSQL database running on RHEL 7. I will flesh this out later with more examples of how to use the REST API.
 
 ## Installation
 * Make sure that the account to be used by PostgREST is in the *.pgpass* file and that the *.pgpass* file has permissions **0600**. See [Pgpass](https://wiki.postgresql.org/wiki/Pgpass).
@@ -97,3 +97,8 @@ I can do a hard kill as follows:
 $ kill -9 22494
 ```
 
+## Contact information
+Michael Maguire  
+Written: 2017-12-22  
+Email: mick@javascript-spreadsheet-programming.com  
+Twitter: https://twitter.com/michaelfmaguir1  
