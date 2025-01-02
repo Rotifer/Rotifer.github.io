@@ -1,32 +1,31 @@
 ## Blog Post Title From First Header
 
-Due to a plugin called `jekyll-titles-from-headings` which is supported by GitHub Pages by default. The above header (in the markdown file) will be automatically used as the pages title.
+Blog created using the instructions kindly provided by Chad Baldwin
+[Building a Free Blog with GitHub Pages in Minutes](https://chadbaldwin.net/2021/03/14/how-to-build-a-sql-blog.html)
 
-If the file does not start with a header, then the post title will be derived from the filename.
-
-This is a sample blog post. You can talk about all sorts of fun things here.
 
 ---
 
-### This is a header
+### Testing DuckDB SQL
 
-#### Some T-SQL Code
-
-```tsql
-SELECT This, [Is], A, Code, Block -- Using SSMS style syntax highlighting
-    , REVERSE('abc')
-FROM dbo.SomeTable s
-    CROSS JOIN dbo.OtherTable o;
+```sql
+CREATE TABLE clubs(
+  club_code VARCHAR PRIMARY KEY,
+  club_name VARCHAR,
+  club_given_name VARCHAR);
 ```
 
-#### Some PowerShell Code
+### Some bash code
 
-```powershell
-Write-Host "This is a powershell Code block";
+```sh
+#!/usr/bin/bash
 
-# There are many other languages you can use, but the style has to be loaded first
+# Declare variables.
+OUTPUT_DIR="../output_data/"
+INPUT_DIR="../source_data/"
 
-ForEach ($thing in $things) {
-    Write-Output "It highlights it using the GitHub style"
-}
+# Remove the final output file if it already exists.
+if [[ -f ${OUTPUT_DIR}seasons_1993_2023.tsv ]]; then
+  rm ${OUTPUT_DIR}seasons_1993_2023.tsv 
+fi
 ```
