@@ -1,4 +1,4 @@
-# Getting and Prepping the data for loading
+# Getting and Prepping the data for loading 🦆⚽
 
 Finding the data we need, checking it, cleaning it and preparing it for database upload can be thankless, 
 onerous and tedious. The data we need is often scattered across multiple source files and the formats of 
