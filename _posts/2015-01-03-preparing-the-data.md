@@ -22,18 +22,15 @@ If you aren not interested in this topic and just want to get to the DuckDB stuf
 when we will have our data in DuckDB tables.
 The DuckDB load files have already been generated and are available in the repo directory _output_data_. 
 Also, if you are proficient in say Ruby or Python and prefer those tools to shell, by all means go ahead and use them 
-instead of shell if you prefer. Windows users who are familiar with PowerShell might also prefer that tool instead.
-To repeat what I said in the introduction, I like and value shell programming but opinions differ. 
+instead of shell if you prefer. Windows users who are familiar with PowerShell might also prefer that tool to do the data manipulations; I am not familiar with it but it is popular and widely used.
+
+To repeat what I said in the introduction, I like and value shell programming but opinions differ. That said, shell scripting and general competence with the Unix/Linux command line are very valuable skills. I have changed programming languages and databases many times over the years but two skills I have learned early on were Unix and SQL and I still use both of them.
 
 ## Task overview
 
 I have downloaded 31 files covering the EPL season 1993-1994 to 2023-2024. These are comma-separated values (CSV) files and we 
 want to extract only a subset of columns from each file and then concatenate all 21 files together into a tab-separated file 
-that we will load into a DuckDB database. As the source files were built over the seasons, new columns have been added over time.
-Most new columns have been added to the right and we are ignoring them. More recent season files have an additional column that 
-records the match start time which has been inserted between columns we need to retain so we will need to account for it in our
-parsing code. I have a different file format entirely for the inaugural 1992-1993 season that we will process in the DuckDB 
-database itself and then add to the final analysis-ready table.
+that we will load into a DuckDB database. As the source files were built over the seasons, new columns have been added over time. Most new columns have been added to the right and we are ignoring them. More recent season files have an additional column that records the match start time which has been inserted between columns we need to retain so we will need to account for it in our parsing code. I have a different file format entirely for the inaugural 1992-1993 season that we will process in the DuckDB database itself and then add to the final analysis-ready table.
 
 
 ## Before we start
@@ -42,27 +39,24 @@ I assuming the following:
 
 - You have access to a Unix type terminal; it could be Mac OS X, Linux, Unix or a linux emulator on windows such as Wine
 - or Windows Subsystem for Linux (WSL)
-- You have checked out the GitHub repo
+- You have checked out the [GitHub repo](https://github.com/Rotifer/duckdb_epl).
 
 ## The source data
 
 ### Seasons 1993-1994 to 2023-2024
 
 I found all the data for seasons from 1993-1994 to 2013-2024 on the website [Football-Data.co.uk](https://www.football-data.co.uk/englandm.php).
-The site provides a guide to the data in a _notes.txt_ file at [this link](https://www.football-data.co.uk/notes.txt). Each EPL 
-season's results has a link to a downloadable CSV file. The season CSV files are all named __E0.csv__ so after downloading 
-each one, I re-named them using the format season start year, followed by underscore, followed by the season end year followed by.csv;
-an example file name I have assigned is _2003_2004.csv_.
-__Tip__: Consistent file naming really helps to keep things organised and also makes processing of such files using shell scripts
-much easier as we will see below.
+The site provides a guide to the data in a _notes.txt_ file at [this link](https://www.football-data.co.uk/notes.txt). Each EPL season's results has a link to a downloadable CSV file. The season CSV files are all named __E0.csv__ so after downloading 
+each one, I re-named them using the format season start year, followed by underscore, followed by the season end year followed by.csv; an example file name I have assigned is _2003_2004.csv_.
+__Tip__: Consistent file naming really helps to keep things organised and also makes processing of such files using shell scripts much easier as we will see below.
 
 31 such files were downloaded, renamed and stored in the repo directory named _source_files_.
 
 ### Season 1992-1993
-Unfortunately, data for the very first EPL season was not avaialble on the website I refer to above. It seemed a shame to me not 
-to have data for the very first EPL season so I found it on Wikipedia, [1992–93 FA Premier League](https://en.wikipedia.org/wiki/1992%E2%80%9393_FA_Premier_League).
+
+Unfortunately, data for the very first EPL season was not avaialble on the website I referred to above. It seemed a shame to me not to have data for the very first EPL season so I found it on Wikipedia, [1992–93 FA Premier League](https://en.wikipedia.org/wiki/1992%E2%80%9393_FA_Premier_League).
 I located the match results in a section called unsurprisingly "Results". 
-I created a CSV file version of this table using Google Sheets which provides a very handy function called _IMPORTHTML_. 
+I created a CSV file version of this table in Google Sheets using its very useful _IMPORTHTML_ function. 
 The following formula entered in cell A1 of Sheet1 extracts the Wikipedia table into the spreadsheet. 
 
 `=IMPORTHTML("https://en.wikipedia.org/wiki/1992%E2%80%9393_FA_Premier_League", "table", 6)`
@@ -75,7 +69,7 @@ I then downloaded the sheet as a tab-delimited CSV file using the menu action:
 
 I saved the file as _season_1992_1993.tsv_ in the repo directory _source_data_. 
 
-The downloaded file is in what is often described as a "crosstab" format which, though convenient for viewing 
+The downloaded file is in what is often described as a "crosstab" format which, though convenient for viewing,
 is not convenient for querying. In order to  extract the data from it, we will need to do some manipulation to create a 
 "long" format with each club name and home and away scores in separate columns. We are also missing the match date so when we 
 integrate data for this season with the later seasons from the previous step, we will have missing data. 
@@ -85,13 +79,15 @@ tables.
 
 ## Builing our shell script piece by piece
 
-The final shell script is available in the _shell_scripts_ directory of the project repo and is named _parse_seasons_1993_2023.sh_. You can take a look at it now to get an overview of it but I am going to break it down piece by piece and explain what each segment of it achieves so that by the end, you will hopefully have a good understanding of its workings. Shell scripting is very amenable to this building piece by piece approach because it is really a glue for the wide range of programs and utilities available on modern Unix-type systems. If you use Unix utilities, then you can write shell scripts by just putting the commands in a script file that you then make executable. Our script file starts with the _shebang_ line: `#!/usr/bin/bash`. When we execute the script by entering `./parse_seasons_1993_2023.sh`, in the command line, it starts executing 
+The final shell script is available in the _shell_scripts_ directory of the project repo and is named _parse_seasons_1993_2023.sh_, [link](https://github.com/Rotifer/duckdb_epl/blob/main/shell_scripts/parse_seasons_1993_2023.sh). You can take a look at it now to get an overview of it but I am going to break it down piece by piece and explain what each segment achieves so that by the end, you will hopefully have a good understanding of its workings. Shell scripting is very amenable to this building piece by piece approach because it is really a glue for the wide range of programs and utilities available on modern Unix-type systems. If you use Unix/Linux utilities, then you can write shell scripts by just putting the commands in a script file that you then make executable. 
+
+Our script file starts with the _shebang_ line: `#!/usr/bin/bash`. When we execute the script by entering `./parse_seasons_1993_2023.sh`, in the command line, it starts interpreting
 the lines in the file either line by line or by construct when you have compound statements such as loops and _if_ statements.
 Each section of the script is introduced with an explanatory comment that begins with # and extends to the line end.
 
 ### Declare some variables
 
-The script does not take any arguments when it is run; everything it needs to know is contained within the script itself. 
+The script does not take any arguments when it is run; everything it needs to "know" is contained within the script itself. 
 The input and out directory paths are assigned to variables as relative paths, relative to the directory of the script itself, 
 that is.
 
@@ -120,9 +116,7 @@ fi
 The bash _if_ syntax looks strange with its double square brackets but the _-f_ is a simple file test and returns _true_ 
 if the given file exists. The dollar is required when accessing the value assigned to a shell variable. The braces ({}) are 
 included to delimit the shell variable. Without the braces, the shell would erroneously assume the variable name includes the 
-text "seasons_1993_2023.tsv"; if you  are accessing the value of a variable name that is bounded by white space, then the curly 
-braces are not needed. Forgetting to use the dollar sign when accessing the variable's value and omitting the curly braces when 
-they are needed are two frequent sources of shell script bugs!
+text "seasons_1993_2023.tsv"; if you  are accessing the value of a variable name that is bounded by white space, then the curly braces are not needed. Forgetting to use the dollar sign when accessing the variable's value and omitting the curly braces when needed are two frequent sources of shell script bugs!
 
  The body of the _if_ statement contains a single command to remove ( _rm_ ) the file. We could simply issue the _rm_ command 
  without enclosing it in the _if_ construct but an error would be written to the terminal as standard error if the file did 
@@ -132,7 +126,7 @@ they are needed are two frequent sources of shell script bugs!
 ### Parse files that do not have the match time column
 
 Let's take a close look at this code segment because it is relatively complex and it demostrates the real power of shell 
-scripting. It uses are two trusty old power tools of Unix scripting: _sed_ and _awk_ utilities. 
+scripting. It uses two trusty old power tools of Unix scripting: _sed_ and _awk_. 
 I have broken up the commands using the shell line continuation backslash character to make the lines shorter and hopefully 
 more readable.
 
@@ -176,7 +170,7 @@ The _awk_ code is the most complex so let's break it down:
   iteration.
 
 
-### Parse files that have the match time column
+### Parse files that do have the match time column
 
 ```sh
 # Parse the files which *have* the match time column.
@@ -233,9 +227,8 @@ longer needed so we can remove them (_rm_). Our task is now complete so we can p
 
 ## General comment on shell scripting and its value
 
-We will see more bash scripts throughout the book for moving data into and out of DuckDB databases but none of the code will be 
-any more complicated than what we have covered here. The real power of shell scripting generally derives from the utilities 
-that come as standard with Unix-type platforms and others available for installation. We can use shell scripts to call these 
+We will see more bash scripts throughout the book for moving data into and out of DuckDB databases but none of the code will be any more complicated than what we have covered here. The real power of shell scripting generally derives from the utilities 
+that come as standard with Unix-type platforms with others available for installation. We can use shell scripts to call these 
 utilities and pipe their output into other tools. These _pipelines_ can be very powerful by allowing us to chain together 
 various tools to achieve quite complex tasks. We have used _sed_ and _awk_ here but there are many other tools available. 
 I frequently use _curl_ in shell scripts, for example, to automate file downloads. The _duckdb_ application itself can also be
@@ -255,15 +248,15 @@ used in shell pipelines as we will see in later examples.
 ## Going further
  
 Other very use useful Unix commands to consider include _tr_, _sort_, _cut_ and _uniq_. 
-There are many, many good books and on-line resource devoted to Unix/Linux shell scripting, one personal book favourite is:
+There are many, many good books and on-line resources devoted to Unix/Linux shell scripting, one personal book favourite is:
 "Unix Shell Programming" - Kochan & Wood. Nothing much has changed with the basics so an old edition works fine. 
 Another good one is "Classic Shell Scripting: Hidden Commands That Unlock the Power of UNIX" - Robbins & Beebe.
 
 ## Next up
 
-We will
+We will:
 
-- Upload the file we generated here into DuckDB
+- Upload the file we generated here into DuckDB.
 - Manipulate the cross-tab file for season 1992-1993 in DuckDB itself.
 - Generate the analysis-ready DuckDB tables.
 
