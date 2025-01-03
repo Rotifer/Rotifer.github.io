@@ -1,6 +1,6 @@
 # Learning and using DuckDB with football data ⚽🦆
 
-I am starting a series of blogs where I use DuckDB to analyse data from the [EngLish Premier League](https://en.wikipedia.org/wiki/Premier_League). I have collected relevant data for season 1992-1993 to 2023-2024 for analysis in DuckDB. This is a small dataset but it is also one that lends itself to some interesting querie, interesting if you like football but also interesting from an SQL point of view. 
+I am starting a series of blogs where I use DuckDB to analyse data from the [EngLish Premier League](https://en.wikipedia.org/wiki/Premier_League). I have collected relevant data for season 1992-1993 to 2023-2024 for analysis in DuckDB. This is a small dataset but it is also one that lends itself to some interesting queries, interesting if you like football but also interesting from an SQL point of view. 
 
 I firmly believe that a great way to learn SQL is to explore data that you are interested in either professionally or as a hobby. My hope is that the football data set we are going to explore is sufficiently interesting to a reasonably wide range of people and also simple enough for those with no knowledge of or interest in football to follow along.
 
