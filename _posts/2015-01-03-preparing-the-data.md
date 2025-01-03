@@ -8,6 +8,7 @@ Our objective here is to collect all the data for English Premier League (EPL) f
 English) games from the inaugural 1992-1993 EPL season to the season 2023-2024. 
 I already gave some background on football in general and the EPL in the [previous post](https://rotifer.github.io/2025/01/02/football-and-duckdb.html) so I am assuming you know what 
 I am talking about when I say things like "EPL" and "seasons".
+
 I use some reasonably advanced shell scripting to prepare the files for database loading. 
 Anyone who knows basic programming and has at least some shell programming experience should be able to follow along. 
 I use the bash shell in all my examples; it is a commonly used shell and is standard on Linux. 
