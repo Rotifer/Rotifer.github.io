@@ -1,4 +1,4 @@
-# Loading and viewing data in DuckDB 🦆⚽
+# Loading and viewing data 🦆⚽
 
 Now that we have created our source files, we need to upload them into a DuckDB database, verify the data and re-format to create our final analysis-ready tables. DuckDB makes loading data very easy and its schema feature is very convenient for organasing tables and other database objects.
 
