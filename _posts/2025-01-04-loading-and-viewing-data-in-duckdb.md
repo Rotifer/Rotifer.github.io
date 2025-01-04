@@ -139,3 +139,14 @@ Re-formatting this dataset to make it compatible with the other seasons' data wi
 - Verified that both data row counts and the number of columns in the new table were as expected
 - Used the _DESCRIBE_ command to get a convenient view of the table column names and data types.
 
+## Next steps
+
+The data we need is now in DuckDB but we need to:
+
+- Verify it.
+- Convert columns the right data types - dates, for example, are stored as    strings and need to be converted.
+- Re-shape the crosstabbed 1992-1993 season's data to make it consistent with other seasons' data.
+- These analysis-ready tables will be created in the _main_ schema.
+
+
+
