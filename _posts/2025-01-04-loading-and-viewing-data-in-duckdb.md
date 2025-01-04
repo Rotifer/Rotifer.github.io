@@ -41,7 +41,7 @@ SELECT * FROM  '../output_data/seasons_1993_2023.tsv' LIMIT 5;
 
 You should see something that looks like the follwing in your teminal:
 
-![post 3 - figure 1](../images/post_03_fig1.png)
+![Alt text](../images/post_03_fig1.png)
 
 By default the output appears in what DuckDB calls _current output mode: duckbox_. You can verify this by issuing the `.mode` dot command. We will see later how to change this mode to customise outputs from queries.
 
