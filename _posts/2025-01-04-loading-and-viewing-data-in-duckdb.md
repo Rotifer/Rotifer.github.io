@@ -95,7 +95,7 @@ When you execute the following SQL, you should see the output shown in the figur
 DESCRIBE seasons_1993_2023_raw;
 ```
 
-![Post 3 - figure 2](../images/post_03_fig2.png)
+<img src="/images/post_03_fig2.png" alt="describe table">
 
 The column names we added in our processing shell script were correctly used by DuckDB as table column names. The column types are more interesting; it has assigned type _VARCHAR_ to five of the seven columns. DuckDB's _VARCHAR_ type behaves like the _TEXT_ type in PostgreSQL which is convenient because it does not requires a length value as it does in many other database software where you need type declarations like _VARCHAR(50)_. It is also a general data type that can represent date values or numbers as text that can be converted to more appropriate types as needed. For example, we have a date column but DuckDB has interpreted the date strings as _VARCHAR_ and has not tried to be "clever" like Excel and do automatic type conversions! It has inferred a type of _BIGINT_ for the columns _home_club_goals_ and _away_club_goals_. DuckDB has many numeric types and it has correctly inferred an integer type for these columns; it has "played safe" by assigning the biggest integer type but common sense tells us no football score is ever going to need such large integers as this type allows. We will cast these columns to a more suitable integer type later. 
 
@@ -114,7 +114,7 @@ LIMIT 10;
 ```
 This shows us the first 10 rows and confirms that we have the expected 23 columns, as show below:
 
-![Post 3 fig1](images/post_03_fig3.png)
+<img src="/images/post_03_fig3.png" alt="table crosstab">
 _
 We can now import the table and get to work extracting its data into a more usable format. 
 
