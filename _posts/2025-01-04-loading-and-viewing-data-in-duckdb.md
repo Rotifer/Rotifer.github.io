@@ -39,9 +39,9 @@ We are going to import the file _seasons_1993_2023.tsv_ which we generated using
 SELECT * FROM  '../output_data/seasons_1993_2023.tsv' LIMIT 5;
 ```
 
-You should see something that looks like the follwing in your teminal:
+You should see something that looks like the following in your teminal:
 
-![Alt text](../images/post_03_fig1.png)
+<img src="/images/post_03_fig1.png" alt="table preview">
 
 By default the output appears in what DuckDB calls _current output mode: duckbox_. You can verify this by issuing the `.mode` dot command. We will see later how to change this mode to customise outputs from queries.
 
