@@ -285,7 +285,7 @@ __Issue 3__: Our raw data uses the club names given by the file source website, 
 
 __Issue 4__: For missing _match_time_  values we have the "NA" (Not Available) flag, we need to convert these to NULLs and all valid date strings to _TIME_ type.
 
-The following SQL effects all these transformations and creates a data output that we can append to the season 1992_1993 rows already in our _matches_ table.
+The following SQL effects all these transformations and creates a data output that we can append to the season 1992/1993 rows already in our _matches_ table.
 
 ```tsql
 CREATE OR REPLACE TABLE staging.epl_matches_1992_2024 AS
