@@ -357,9 +357,12 @@ FROM
 
 ## Summing up
 
-- DuckDB is exceptionally good at cleaning up data.
-- Regular expressions, arrays and loads of functions make slicing and dicing easy.
-- We have only scratched the surface of its capabilities.
+- We now have our matches data in a a clean and analysis-ready format.
+- DuckDB has many features which facilitate data cleaning and re-formatting:
+  - Regular expressions
+  - Arrays and lists
+  - A comprehensive set of functions for manipulating all kinds of data
+- Adding comments to tables and columns makes our database self-documenting
 
 ## Next up
 
