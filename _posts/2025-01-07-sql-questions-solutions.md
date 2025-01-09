@@ -251,4 +251,4 @@ These 10 questions gave us a chance to explore the data and answer some interest
 
 ## Up next
 
-We will use SQL to identify which clubs were relegated/promoted for each season. We will also look at how clubs have fared over the season against their greatest rivals. Arsenal-Tottenham and Liverpool-Manchester United are two such rivalries that we will investigate.
+We will use SQL to identify which clubs were relegated/promoted for each season. 
