@@ -148,4 +148,4 @@ I originally omitted the DESC for _goal_diff_ and _scored_. doing so erroneously
 
 ## Next up
 
-DuckDB supports [macros](https://duckdb.org/docs/sql/statements/create_macro.html) that allow us to write re-usable SQL and provide a uer-defined function capability akin to [PostgreSQL custom functions](https://www.postgresql.org/docs/current/xfunc-sql.html) written using SQL. This can provide parameterised views which, as will see, are convenient and reduce writing of repetitive code.
+DuckDB supports [macros](https://duckdb.org/docs/sql/statements/create_macro.html) that allow us to write re-usable SQL and provide a user-defined function capability akin to [PostgreSQL custom functions](https://www.postgresql.org/docs/current/xfunc-sql.html) written using SQL. This can provide parameterised views which, as will see, are convenient and reduce writing of repetitive code.
