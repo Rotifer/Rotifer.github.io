@@ -51,10 +51,11 @@ The three clubs with the least points are relegated to the second tier of Englis
 - I use the DuckDB CLI and the excellent [Harlequin IDE](https://harlequin.sh/)
 - All the input and output data are available at this Git repo: [duckdb_epl](https://github.com/Rotifer/duckdb_epl)
 - You can use [SQL Workbech](https://sql-workbench.com/) in your blowser to explore the DuckDB database file _epl.ddb_ in the repo directory _db_files_
-- The final tables in this database are very small so I have made them available in a Google Sheets spreadsheet, [link](https://docs.google.com/spreadsheets/d/1_fOg5czgbGAJOHIIPs1s2s4oOhHhaxL9SYtqeau74lM/edit?usp=sharing)
-  - The first three sheet names correspond to the DuckDB table names (in schema _main_).
-  - The final sheet name called _seasons_ is a dynamic sheet and displays the final point ranking for any season selected     in cell A2.
+- The final tables in this database are very small so I have made them available in a Google Sheets spreadsheet, [link](https://docs.google.com/spreadsheets/d/15EpbhgQibpv2haCeWsM77uApxgS5zYfq/edit?usp=sharing&ouid=102009104893541016477&rtpof=true&sd=true). The sheet names correspond to the DuckDB table names (in schema _main_) except that for views, I have dropped the "vw_" prefix.
+- The is also an Excel version in the output_data directory of the repo, the file is named epl_YYYYMMDD.xlsx where YYYYMMDD represents the date the file was generated. Any edits or fixes will be present in this file and in the DuckDB database itself.
 
-My next blog entry, arriving very soon, will describe how I collected the source data. It will include a fairly lengthy bash script that aggregates the data and prepares it for upload into DuckDB. A few more data munging blog posts will follow but once we have clean table data, we can start to dig in to DuckDB SQL to answer some interesting questions.
+## Next up
+
+The next entry will include a fairly lengthy bash script that aggregates the data and prepares it for upload into DuckDB. A few more data munging blog posts will follow but once we have clean table data, we can start to dig in to DuckDB SQL to answer some interesting questions.
 
 
