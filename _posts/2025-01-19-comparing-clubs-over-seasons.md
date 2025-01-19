@@ -4,8 +4,8 @@
 
 <strong>Note for following along</strong>
 
-- check out the [GitHub repo](https://github.com/Rotifer/duckdb_epl).
-- See the data in Google sheets format [here](https://docs.google.com/spreadsheets/d/15EpbhgQibpv2haCeWsM77uApxgS5zYfq/edit?gid=1237416221#gid=1237416221).
+- check out the  <a href="https://github.com/Rotifer/duckdb_epl">GitHub repo</a>
+- See the data in Google sheets format <a href="https://docs.google.com/spreadsheets/d/15EpbhgQibpv2haCeWsM77uApxgS5zYfq/edit?gid=1237416221#gid=1237416221">here.</a>
 
 </div>
 
