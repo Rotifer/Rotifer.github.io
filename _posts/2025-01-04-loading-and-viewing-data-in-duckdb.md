@@ -1,5 +1,18 @@
 # Loading and viewing data 🦆⚽
 
+
+<div style="background-color:#E5E4D7">
+
+<strong>Note for following along</strong>
+
+<ul> 
+    <li> Check out the  <a href="https://github.com/Rotifer/duckdb_epl">GitHub repo</a></li>
+    <li> See the data in Google sheets format <a href="https://docs.google.com/spreadsheets/d/15EpbhgQibpv2haCeWsM77uApxgS5zYfq/edit?gid=1237416221#gid=1237416221">here.</a></li>
+</ul>
+
+</div>
+
+
 Now that we have created our source files, we need to upload them into a DuckDB database, verify the data and re-format to create our final analysis-ready tables. DuckDB makes loading data very easy and its schema feature is very convenient for organasing tables and other database objects.
 
 

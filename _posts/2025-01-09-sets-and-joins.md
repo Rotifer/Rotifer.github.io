@@ -1,5 +1,16 @@
 # Promotions and relegations - Sets and Joins 🦆⚽
 
+<div style="background-color:#E5E4D7">
+
+<strong>Note for following along</strong>
+
+<ul> 
+    <li> Check out the  <a href="https://github.com/Rotifer/duckdb_epl">GitHub repo</a></li>
+    <li> See the data in Google sheets format <a href="https://docs.google.com/spreadsheets/d/15EpbhgQibpv2haCeWsM77uApxgS5zYfq/edit?gid=1237416221#gid=1237416221">here.</a></li>
+</ul>
+
+</div>
+
 The composition of the Premier League, like other leagues in Europe, changes from season to season as clubs are relegated from it to the second tier, called the Championship in England, and promoted into it. In England three clubs are promoted to replace the three relegated teams at the end of each season. Season 1994-1995 was an exception when four clubs were relegated but only two were promoted thereby reducing the size of the league from 22 to its present size of 20 clubs.
 
 We can determine which clubs were relegated in two ways:

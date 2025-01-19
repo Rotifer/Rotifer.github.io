@@ -1,4 +1,15 @@
-## Final club positions for each season 🦆⚽
+# Final club positions for each season 🦆⚽
+
+<div style="background-color:#E5E4D7">
+
+<strong>Note for following along</strong>
+
+<ul> 
+    <li> Check out the  <a href="https://github.com/Rotifer/duckdb_epl">GitHub repo</a></li>
+    <li> See the data in Google sheets format <a href="https://docs.google.com/spreadsheets/d/15EpbhgQibpv2haCeWsM77uApxgS5zYfq/edit?gid=1237416221#gid=1237416221">here.</a></li>
+</ul>
+
+</div>
 
 Our _matches_ table records all the data we need to contruct the final league positions for each season. However, we need to perform a series of aggregations and calculations to produce these league position tables. Since, the league positions are calculated from the _matches_ table only, I am going to store them in a __view__ based on that table. A view is a stored query so each time we use the view, it is re-calculated. This has a minimal cost in our example because the dataset is very small and DuckDB is highly performant. It also has the advantage that if we add matches for another season, say 2024-2025, the data will automatically picked up by the view. 
 

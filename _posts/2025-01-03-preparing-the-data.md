@@ -1,4 +1,15 @@
-# Getting and Prepping the data for loading 🦆⚽
+# Getting and Prepping the data for loading <div style="background-color:#E5E4D7">
+
+<strong>Note for following along</strong>
+
+<ul> 
+    <li> Check out the  <a href="https://github.com/Rotifer/duckdb_epl">GitHub repo</a></li>
+    <li> See the data in Google sheets format <a href="https://docs.google.com/spreadsheets/d/15EpbhgQibpv2haCeWsM77uApxgS5zYfq/edit?gid=1237416221#gid=1237416221">here.</a></li>
+</ul>
+
+</div>
+
+
 
 Finding the data we need, checking it, cleaning it and preparing it for database upload can be thankless, 
 onerous and tedious. The data we need is often scattered across multiple source files and the formats of 

@@ -1,5 +1,16 @@
 # Running totals with a window function 🦆⚽
 
+<div style="background-color:#E5E4D7">
+
+<strong>Note for following along</strong>
+
+<ul> 
+    <li> Check out the  <a href="https://github.com/Rotifer/duckdb_epl">GitHub repo</a></li>
+    <li> See the data in Google sheets format <a href="https://docs.google.com/spreadsheets/d/15EpbhgQibpv2haCeWsM77uApxgS5zYfq/edit?gid=1237416221#gid=1237416221">here.</a></li>
+</ul>
+
+</div>
+
 As a season progresses, clubs accumulate points and comparisons between clubs at different points in the season are interesting. Some clubs "hit form" and surge ahead while others lose players through injury or experience "a dip in form" that is reflected in a reduced rate of points accumulation. Running totals are needed to see how clubs' positions change throughout the season. 
 
 There is a general application for this approach to things like sales over time and it can be implemented in SQL using __window functions__ which are fully supported by DuckDB. I am only going to explain one example in this post but I will return to the topic again and perhaps then write a up a more comprehensive review of the topic. Bottom line is: if you don't know and use window functions, you're missing out on one of the most powerful features of modern SQL. 

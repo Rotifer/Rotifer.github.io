@@ -1,5 +1,16 @@
 # Exploring data - answering questions with SQL 🦆⚽
 
+<div style="background-color:#E5E4D7">
+
+<strong>Note for following along</strong>
+
+<ul> 
+    <li> Check out the  <a href="https://github.com/Rotifer/duckdb_epl">GitHub repo</a></li>
+    <li> See the data in Google sheets format <a href="https://docs.google.com/spreadsheets/d/15EpbhgQibpv2haCeWsM77uApxgS5zYfq/edit?gid=1237416221#gid=1237416221">here.</a></li>
+</ul>
+
+</div>
+
 The EPL data is now ready for analysis. We will start with some simple queries to familiarise ourselves with the data. We will be working in schema _main_ where we have two tables and a one view. Tables: _matches_ and _clubs_. View: _vw_ltables_. 
 
 Basic SQL knowledge is assumed here meaning that you already know what SELECT, FROM, WHERE, JOIN and GROUP BY mean. I will start this and subsequent posts with a series of questions and then provide my solutions. There are often many ways to accomplish th same tasks in SQL, your solutions might very well be better than mine! I would also encourage you to try out your own queries and read relevant [DuckDB documentation](https://duckdb.org/docs/) which is excellent.

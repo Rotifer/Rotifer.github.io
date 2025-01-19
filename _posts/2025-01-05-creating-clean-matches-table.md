@@ -1,5 +1,16 @@
 # Creation of the _clubs_ and _matches_  tables 🦆⚽
 
+<div style="background-color:#E5E4D7">
+
+<strong>Note for following along</strong>
+
+<ul> 
+    <li> Check out the  <a href="https://github.com/Rotifer/duckdb_epl">GitHub repo</a></li>
+    <li> See the data in Google sheets format <a href="https://docs.google.com/spreadsheets/d/15EpbhgQibpv2haCeWsM77uApxgS5zYfq/edit?gid=1237416221#gid=1237416221">here.</a></li>
+</ul>
+
+</div>
+
 We now have our data in two tables in the _staging_ scehma but it is not yet analysis ready. Just to recap, our raw data table names are:
 
 1. _season_1992_1993_raw_
