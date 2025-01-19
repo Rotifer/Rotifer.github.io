@@ -5,8 +5,8 @@
 <strong>Note for following along</strong>
 
 <ul> 
-    <li> check out the  <a href="https://github.com/Rotifer/duckdb_epl">GitHub repo</a></li>
-    <li>  See the data in Google sheets format <a href="https://docs.google.com/spreadsheets/d/15EpbhgQibpv2haCeWsM77uApxgS5zYfq/edit?gid=1237416221#gid=1237416221">here.</a></li>
+    <li> Check out the  <a href="https://github.com/Rotifer/duckdb_epl">GitHub repo</a></li>
+    <li> See the data in Google sheets format <a href="https://docs.google.com/spreadsheets/d/15EpbhgQibpv2haCeWsM77uApxgS5zYfq/edit?gid=1237416221#gid=1237416221">here.</a></li>
 </ul>
 
 </div>
