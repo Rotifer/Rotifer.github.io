@@ -9,6 +9,9 @@
 
 </div>
 
+
+## Topics
+
 Here we look at ways to compare clubs' performances across seasons using a variety of SQL techniques and we once again explot DuckDB's macro implementation.
 
 ## Basic statistics for clubs and seasons
